@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UsersData {
-    private List<HashMap<String, String>> users;
-    public List<HashMap<String, String>> getUsers() {
+    private List<UserData> users;
+    public List<UserData> getUsers() {
         return users;
     }
 
-    public void addInUsers(HashMap<String, String> mp) {
+    public void addInUsers(UserData mp) {
         this.users.add(mp);
     }
 

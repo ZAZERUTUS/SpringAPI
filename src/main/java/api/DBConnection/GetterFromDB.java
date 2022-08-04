@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static api.DBConnection.TestDBConnector.closeConnection;
 import static api.DBConnection.TestDBConnector.getConnection;
 
 public class GetterFromDB {
@@ -15,14 +16,14 @@ public class GetterFromDB {
     public static String sql_ALL_EMAILS = "SELECT email FROM users;";
 
 
-    public static List<HashMap<String, String>> getAllUsers() {
-        List<HashMap<String, String>> lst = new ArrayList<>();
+    public static List<UserData> getAllUsers() {
+        List<UserData> lst = new ArrayList<>();
         Connection connection = getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql_ALL_USERS);
             while (resultSet.next()) {
-                HashMap<String, String> mp = new HashMap<>();
+                UserData mp = new UserData();
                 String id = resultSet.getString(1);
                 String name = resultSet.getString(2);
                 String password = resultSet.getString(3);
@@ -32,7 +33,9 @@ public class GetterFromDB {
                 lst.add(mp);
 //                    System.out.println("User name: " + name + " password: " +password);
             }
-        } catch (Exception e) {e.printStackTrace();}
+            closeConnection();
+        } catch (Exception e) {e.printStackTrace();
+            closeConnection();}
         return lst;
     }
 
@@ -47,7 +50,9 @@ public class GetterFromDB {
                 lst.add(resultSet.getString(1));
             }
             mp.put("emails", lst);
-        } catch (Exception e) {e.printStackTrace();}
+            closeConnection();
+        } catch (Exception e) {e.printStackTrace();
+            closeConnection();}
         return mp;
     }
 }
