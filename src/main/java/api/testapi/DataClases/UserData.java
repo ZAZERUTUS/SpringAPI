@@ -6,8 +6,8 @@ public class UserData extends HashMap<String, String> {
 
 
     private int id;
-    private String email;
-    private String password;
+    private String email = null;
+    private String password = null;
 
     public int getId() {
         return id;

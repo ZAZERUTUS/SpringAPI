@@ -11,12 +11,12 @@ public class TestDBConnector {
     private static final String user = "root";
     private static final String password_ = "Qaz123wsx@";
     private Connection connection;
-    public static Connection returnConnection;
+    public static Connection returnConnection = null;
 
     private TestDBConnector(){
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
-            connection = DriverManager.getConnection(url, user, password_);
+            this.connection = DriverManager.getConnection(url, user, password_);
         } catch (Exception e) {
             connection = null;
             e.printStackTrace();
@@ -24,9 +24,18 @@ public class TestDBConnector {
     }
 
     public static Connection getConnection() {
-        if (returnConnection == null){
-            TestDBConnector connector = new TestDBConnector();
-            returnConnection = connector.connection;
+        try {
+            if (returnConnection == null) {
+                TestDBConnector connector = new TestDBConnector();
+                returnConnection = connector.connection;
+            } else if (returnConnection.isClosed()) {
+                TestDBConnector connector = new TestDBConnector();
+                returnConnection = connector.connection;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
         return  returnConnection;
     }

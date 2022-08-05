@@ -29,8 +29,8 @@ public class AllUsersController {
         return getRegisteredEmails();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultResponse() {
-        return "This is default endpoint. Ints only text";
+        return "resources/static/instructionForAPI.html";
     }
 }
