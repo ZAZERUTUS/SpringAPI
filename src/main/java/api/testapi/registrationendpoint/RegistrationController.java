@@ -1,6 +1,7 @@
 package api.testapi.registrationendpoint;
 
 import api.testapi.DataClases.AuthClass;
+import api.testapi.DataClases.Role;
 import api.testapi.DataClases.UserData;
 import api.testapi.registrationendpoint.WorkerWithDB.RegistrationWorker;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ public class RegistrationController {
         UserData userData = new UserData();
         userData.setEmail(email);
         userData.setPassword(password);
+        userData.setRole(Role.USER.toString());
         AuthClass authClass = RegistrationWorker.AddNewUserInDB(userData);
         return authClass;
     }

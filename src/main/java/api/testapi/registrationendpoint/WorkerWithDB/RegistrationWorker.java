@@ -2,13 +2,10 @@ package api.testapi.registrationendpoint.WorkerWithDB;
 
 import api.testapi.DataClases.AuthClass;
 import api.testapi.DataClases.UserData;
-import api.testapi.DataClases.UsersData;
-import api.testapi.loginendpoint.WorkerWithDB.LoginWorker;
+import api.testapi.loginendpoint.WorkerWithDB.LoginService;
 import api.testapi.validators.UserDataValidator;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import static api.DBConnection.TestDBConnector.closeConnection;
 import static api.DBConnection.TestDBConnector.getConnection;
@@ -29,7 +26,7 @@ public class RegistrationWorker {
         if (authClass1 != null) {return authClass1;}
 
         try {
-            if (LoginWorker.assertUserInDBByEmail(userData.getEmail()).equals("true")) {
+            if (LoginService.assertUserInDBByEmail(userData.getEmail()).equals("true")) {
                 authClass.setError_text("User already registered");
                 return authClass;
             }
